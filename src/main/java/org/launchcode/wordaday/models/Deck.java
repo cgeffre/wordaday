@@ -1,4 +1,10 @@
 package org.launchcode.wordaday.models;
 
-public class Deck {
+import javax.persistence.Entity;
+
+@Entity
+public class Deck extends AbstractEntity {
+
+    public Deck() {}
+
 }

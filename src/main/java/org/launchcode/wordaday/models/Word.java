@@ -1,4 +1,10 @@
 package org.launchcode.wordaday.models;
 
-public class Word {
+import javax.persistence.Entity;
+
+@Entity
+public class Word extends AbstractEntity {
+
+    public Word() {}
+
 }
