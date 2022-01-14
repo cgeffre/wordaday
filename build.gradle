@@ -19,15 +19,17 @@ node {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'mysql:mysql-connector-java'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.2'
+	implementation 'org.springframework.boot:spring-boot-starter-security:2.6.2'
+	implementation 'org.springframework.security:spring-security-test:5.5.1'
+	implementation 'mysql:mysql-connector-java:8.0.25'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools:2.6.2'
+	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat:2.6.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.6.2'
 }
 
 test {
@@ -38,7 +40,7 @@ task buildReactApp(type: NodeTask, dependsOn: 'npmInstall') {
 	script = project.file('node_modules/webpack/bin/webpack.js')
 	args = [
 			'--mode', 'development',
-			'--entry', './src/main/webapp/javascript/Main.jsx',
+			'--entry', './src/main/webapp/WEB-INF/view/react/src/Main.jsx',
 			'-o', './src/main/resources/static/dist'
 	]
 }
