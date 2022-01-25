@@ -1,48 +1,84 @@
-<!--<!DOCTYPE html>-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>Word of the Day</title>-->
-<!--    <script src="style.css"></script>-->
-<!--</head>-->
-
-
-
-<!--<body>-->
-<!--&lt;!&ndash;Create menu&ndash;&gt;-->
-<!--<a href="#" class="logo">Portfolio</a>-->
-
-<!--<ul class="menu">-->
-<!--    <li> <a href="#home">Home</a> </li>-->
-<!--    <li> <a href="#study">Study</a> </li>-->
-<!--    <li> <a href="#Account">Account</a></li>-->
-<!--</ul>-->
-
-<!--&lt;!&ndash;Top section starts&ndash;&gt;-->
-<!--<section class="top" id="home">-->
-<!--    <div class="textBx">-->
-<!--        <h1>Word of the Day</h1>-->
-
-<!--        <p>Date/Time: <span id="datetime"></span></p>-->
-<!--        <script>-->
-<!--            var dt = new Date();-->
-<!--            document.getElementById("datetime").innerHTML = dt.toLocaleString();-->
-<!--        </script>-->
-<!--    </div>-->
-<!--</section>-->
-<!--&lt;!&ndash;Favorite section&ndash;&gt;-->
-<!--&lt;!&ndash;Study button sections&ndash;&gt;-->
-<!--</body>-->
-
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>React on Spring</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word of the Day</title>
+    <script src="style.css"></script>
 </head>
+
+
+
 <body>
-<div id="react-mountpoint"></div>
-<script src="dist/react-app.js"></script>
+<!-- menu section-->
+<a href="#" class="logo">WORDOFTHEDAY</a>
+
+<ul class="menu">
+    <li> <a href="#home">Home</a> </li>
+    <li> <a href="#study">Study</a> </li>
+    <li> <a href="#Account">Account</a></li>
+</ul>
+
+<!--Top section starts-->
+<section class="top" id="home">
+    <div class="textBx">
+        <h1>Word of the Day</h1>
+
+        <p>Date/Time: <span id="datetime"></span></p>
+        <script>
+            var dt = new Date();
+            document.getElementById("datetime").innerHTML = dt.toLocaleString();
+        </script>
+    </div>
+
+    <div>
+        <button>English</button>
+        <button>Spanish</button>
+    </div>
+</section>
+
+<!--Middle section starts-->
+<!--Favorites-->
+<section class="middle" id="favorites">
+<h2>Favorite Words</h2>
+
+   <div class="middle" id="favoritewords">
+       <ul>
+           <li>Item one </li>
+           <li>Item two </li>
+           <li>Item three </li>
+       </ul>
+   </div>
+
+</section>
+
+<!--Bottom section starts-->
+<!--Study buttons -->
+<section class="bottom" id="study">
+    <button>Study</button>
+    <button>Test Myself</button>
+
+</section>
+
+
+<!--Footer -->
+<footer> Copyright 2022</footer>
+
 </body>
 </html>
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>React on Spring</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="react-mountpoint"></div>-->
+<!--<script src="dist/react-app.js"></script>-->
+<!--</body>-->
+<!--</html>-->
