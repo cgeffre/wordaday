@@ -14,8 +14,8 @@ public class Deck extends AbstractEntity {
     @ManyToMany
     private Set<Word> words = new HashSet<>();
 
-    @OneToOne
-    private User user;
+//    @OneToOne
+//    private User user;
 
     public Deck() {}
 
@@ -34,11 +34,11 @@ public class Deck extends AbstractEntity {
         this.words = words;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }
