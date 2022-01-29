@@ -9,6 +9,8 @@ import java.util.Set;
 @Entity
 public class Word extends AbstractEntity {
 
+    private String word;
+
     @ManyToMany(mappedBy="words")
     private Set<Deck> deck = new HashSet<>();
 
