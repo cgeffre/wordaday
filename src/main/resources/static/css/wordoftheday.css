@@ -1,0 +1,21 @@
+.body-content {
+    margin-top: 75px;
+}
+
+h1 {
+    padding-bottom: 20px;
+}
+
+td, th {
+    padding: 10px;
+}
+
+ul {
+    float: left;
+    overflow: hidden;
+    width: 50%;
+}
+
+.error {
+    color: #FF0000;
+}

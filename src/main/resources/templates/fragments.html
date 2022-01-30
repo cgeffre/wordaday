@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+
+    <!-- Bootstrap stylesheets and script -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/wordoftheday.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
+
+    <title th:text="'HIIT Workout Builder' + ${title == null ? '' : ' :: ' + title}">Word of the Day</title>
+</head>
+
+<body>
+
+<div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">Word of the Day</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--<li><a th:href="@{/deck">Deck</a></li>
+                <li><a th:href="@{/favorites}">Favorites</a></li>-->
+                <li style="float:right;"><a th:href="@{/logout}">Sign Out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="page-header-login" class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a th:href="@{/}" class="navbar-brand">Word of the Day</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/login}">Login</a></li>
+                <li><a th:href="@{/register}">Register</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="page-footer">
+    <p>Random Word and Dictionary Definition APIs Powered by <a href="https://www.wordnik.com/" target="_blank">Wordnik</a></p>
+</div>
+
+</body>
+</html>

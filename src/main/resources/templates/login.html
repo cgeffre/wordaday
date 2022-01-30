@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <title>Login</title>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
 </head>
-<body>
+<body class="container body-content">
+
+<h1>Login</h1>
+
+<div th:replace="fragments :: page-header-login"></div>
 <form method="post">
     <div class="form-group">
         <label th:for="username">Username
@@ -20,7 +23,8 @@
 
     <input type="submit" class="btn btn-primary" value="Log In" />
 </form>
+<br>
+<p>Don't have an account? <a href="/register">Click here to register!</a></p>
 
-<p>Don't have an account? <a href="/register">Register for one.</a></p>
 </body>
 </html>
