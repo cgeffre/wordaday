@@ -8,10 +8,13 @@
 
 <h1>Word of the Day</h1>
 
-<p>Today our word is:</p>
-<strong><p th:text="${wordApi}"/></strong>
-<p>Definition:</p>
-<p>Source:</p>
+
+<p>Today's word is:</p>
+<div class="container">
+    <strong><p th:text="${wordApi}"/></strong>
+    <p><th:block th:text="'Definition: ' + ${defText}"/>
+    <p><th:block th:text="'This definition is ' + ${defSource}"/></p>
+</div>
 
 <p><a href="${/login>">Login</a> or <a href="${/register">register</a> to save this word to a deck of flashcards, add it to your list of favorites, and more!</p>
 
