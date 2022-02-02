@@ -9,12 +9,7 @@
 
 <h1><th:block th:text="'Welcome, ' + ${username} + '!'"/></h1>
 
-<div class="container">
-    <p><strong><th:block th:text="${wordApi}"/></strong></p>
-    <th:block th:if="${defText} != ''">
-        <ol th:each="definition : ${defText}" th:text="${definition}"/>
-    </th:block>
-</div>
+<div th:replace="fragments :: random-word"></div>
 
 <div th:replace="fragments :: page-footer"></div>
 

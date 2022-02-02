@@ -8,12 +8,7 @@
 
 <h1>Word of the Day</h1>
 
-<div class="container">
-    <p><strong><th:block th:text="${wordApi}"/></strong></p>
-    <th:block th:if="${defText} != ''">
-        <ol th:each="definition : ${defText}" th:text="${definition}"/>
-    </th:block>
-</div>
+<div th:replace="fragments :: random-word"></div>
 
 <div class="section">
     <p><a th:href="@{/login}">Login</a> or <a th:href="@{/register}">register</a> to save words to your account and test yourself using flashcards!</p>
