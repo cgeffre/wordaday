@@ -10,7 +10,7 @@
 
 <div class="container">
     <strong><p th:text="${wordApi}"/></strong>
-    <p><th:block th:text="'Definition: ' + ${defText}"/>
+    <p><th:block th:if="${defText} != ''" th:text="'Definition: ' + ${defText}"/>
 </div>
 
 <div class="section">
