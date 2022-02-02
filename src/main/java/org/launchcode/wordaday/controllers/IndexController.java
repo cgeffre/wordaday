@@ -3,7 +3,9 @@ package org.launchcode.wordaday.controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.launchcode.wordaday.models.User;
+import org.launchcode.wordaday.models.Word;
 import org.launchcode.wordaday.models.data.UserRepository;
+import org.launchcode.wordaday.models.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,21 +22,19 @@ public class IndexController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    WordRepository wordRepository;
+
     @GetMapping("/")
     public String index(Model model) {
         try {
-            URL jsonWordUrl = new URL("https://random-word-api.herokuapp.com/word?number=1");
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode wordArray = mapper.readValue(jsonWordUrl, JsonNode.class);
-            String wordText = wordArray.get(0).textValue();
-            URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + wordText + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
-            JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
-            String defText = defApi.get(0).get("shortdef").get(0).textValue();
-            if (wordText != null && defText != null) {
-                model.addAttribute("wordApi", wordText);
-                model.addAttribute("defText", defText);
+            Word word = new Word();
+            word.generateRandomFromApis(word);
+            if (word.getWord() != null && word.getDefinition() != null) {
+                model.addAttribute("wordApi", word.getWord());
+                model.addAttribute("defText", word.getDefinition());
             }
-            if (wordText == null || defText == null) {
+            if (word.getWord() == null || word.getDefinition() == null) {
                 model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
                 model.addAttribute("defText", "");
             }
@@ -54,23 +54,19 @@ public class IndexController {
         User user = userRepository.findById(userId).orElse(new User());
         model.addAttribute("username", user.getUsername());
         try {
-            URL jsonWordUrl = new URL("https://random-word-api.herokuapp.com/word?number=1");
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode wordArray = mapper.readValue(jsonWordUrl, JsonNode.class);
-            String wordText = wordArray.get(0).textValue();
-            URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + wordText + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
-            JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
-            String defText = defApi.get(0).get("shortdef").get(0).textValue();
-            if (wordText != null && defText != null) {
-                model.addAttribute("wordApi", wordText);
-                model.addAttribute("defText", defText);
+            Word word = new Word();
+            word.generateRandomFromApis(word);
+            if (word.getWord() != null && word.getDefinition() != null) {
+                model.addAttribute("wordApi", word.getWord());
+                model.addAttribute("defText", word.getDefinition());
             }
-            if (wordText == null || defText == null) {
+            if (word.getWord() == null || word.getDefinition() == null) {
                 model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
                 model.addAttribute("defText", "");
             }
             return "/user/index";
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a few moments and then try again.");
             model.addAttribute("defText", "");
             return "/user/index";
