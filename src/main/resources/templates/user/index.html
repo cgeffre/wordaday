@@ -10,8 +10,10 @@
 <h1><th:block th:text="'Welcome, ' + ${username} + '!'"/></h1>
 
 <div class="container">
-    <p>Word: <strong><th:block th:text="${wordApi}"/></strong></p>
-    <p><th:block th:if="${defText} != ''" th:text="'Definition: ' + ${defText}"/>
+    <p><strong><th:block th:text="${wordApi}"/></strong></p>
+    <th:block th:if="${defText} != ''">
+        <ol th:each="definition : ${defText}" th:text="${definition}"/>
+    </th:block>
 </div>
 
 <div th:replace="fragments :: page-footer"></div>

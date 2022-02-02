@@ -1,7 +1,5 @@
 package org.launchcode.wordaday.controllers;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.launchcode.wordaday.models.User;
 import org.launchcode.wordaday.models.Word;
 import org.launchcode.wordaday.models.data.UserRepository;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.net.URL;
 
 @Controller
 @RequestMapping
@@ -30,11 +27,11 @@ public class IndexController {
         try {
             Word word = new Word();
             word.generateRandomFromApis(word);
-            if (word.getWord() != null && word.getDefinition() != null) {
+            if (word.getWord() != null && word.getDefinitions() != null) {
                 model.addAttribute("wordApi", word.getWord());
-                model.addAttribute("defText", word.getDefinition());
+                model.addAttribute("defText", word.getDefinitions());
             }
-            if (word.getWord() == null || word.getDefinition() == null) {
+            if (word.getWord() == null || word.getDefinitions() == null) {
                 model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
                 model.addAttribute("defText", "");
             }
@@ -56,11 +53,11 @@ public class IndexController {
         try {
             Word word = new Word();
             word.generateRandomFromApis(word);
-            if (word.getWord() != null && word.getDefinition() != null) {
+            if (word.getWord() != null && word.getDefinitions() != null) {
                 model.addAttribute("wordApi", word.getWord());
-                model.addAttribute("defText", word.getDefinition());
+                model.addAttribute("defText", word.getDefinitions());
             }
-            if (word.getWord() == null || word.getDefinition() == null) {
+            if (word.getWord() == null || word.getDefinitions() == null) {
                 model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
                 model.addAttribute("defText", "");
             }
