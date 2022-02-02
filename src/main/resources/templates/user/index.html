@@ -2,21 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 </head>
+
 <body class="container body-content">
 
-<div th:replace="fragments :: page-header-login"></div>
+<div th:replace="fragments :: page-header"></div>
 
-<h1>Word of the Day</h1>
+<h1><th:block th:text="'Welcome, ' + ${username} + '!'"/></h1>
 
 <div class="container">
     <p>Word: <strong><th:block th:text="${wordApi}"/></strong></p>
     <p><th:block th:if="${defText} != ''" th:text="'Definition: ' + ${defText}"/>
 </div>
 
-<div class="section">
-    <p><a th:href="@{/login}">Login</a> or <a th:href="@{/register}">register</a> to save words to your account and test yourself using flashcards!</p>
-</div>
-
 <div th:replace="fragments :: page-footer"></div>
+
 </body>
 </html>
