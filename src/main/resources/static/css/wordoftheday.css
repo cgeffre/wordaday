@@ -19,3 +19,7 @@ ul {
 .error {
     color: #FF0000;
 }
+
+.section {
+    padding-top: 25px;
+}

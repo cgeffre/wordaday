@@ -18,8 +18,6 @@ public class User extends AbstractEntity {
 //    @OneToOne
 //    private Deck deck;
 //
-//    @OneToOne
-//    private Favorites favorites;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
