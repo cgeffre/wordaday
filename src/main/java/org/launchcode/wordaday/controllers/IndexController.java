@@ -19,10 +19,7 @@ public class IndexController {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    WordRepository wordRepository;
-
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model) {
         try {
             Word word = new Word();
