@@ -12,9 +12,7 @@ import javax.servlet.http.HttpSession;
 public class StudyController {
 
     @GetMapping("study")
-    public String studyPage() {
-
+    public String study() {
         return "user/study";
     }
-
 }

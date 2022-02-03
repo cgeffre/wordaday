@@ -40,10 +40,12 @@ public class Word extends AbstractEntity {
             JsonNode singleDef = defApi.get(0).get("shortdef");
             definitions.add(singleDef.textValue());
         }
-        word.setWord(wordText);
-        word.setDefinitions(definitions);
-        if (word.getDefinitions().size() < 1) {
+        if (definitions.size() == 0 || wordText == null) {
             word.generateRandomFromApis(word);
+        }
+        if (definitions.size() > 0 && wordText != null) {
+            word.setWord(wordText);
+            word.setDefinitions(definitions);
         }
         return word;
     }

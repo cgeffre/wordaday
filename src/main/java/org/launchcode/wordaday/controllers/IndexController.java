@@ -19,23 +19,17 @@ public class IndexController {
     @Autowired
     UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("/")
     public String index(Model model) {
         try {
             Word word = new Word();
             word.generateRandomFromApis(word);
-            if (word.getWord() != null && word.getDefinitions() != null) {
-                model.addAttribute("wordApi", word.getWord());
-                model.addAttribute("defText", word.getDefinitions());
-            }
-            if (word.getWord() == null || word.getDefinitions() == null) {
-                model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
-                model.addAttribute("defText", "");
-            }
+            model.addAttribute("wordApi", word.getWord());
+            model.addAttribute("defText", word.getDefinitions());
             return "index";
         }
         catch (Exception e) {
-            model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a few moments and then try again.");
+            model.addAttribute("wordApi", "Oops! We encountered an error getting your word. Please try again.");
             model.addAttribute("defText", "");
             return "index";
         }
@@ -50,20 +44,15 @@ public class IndexController {
         try {
             Word word = new Word();
             word.generateRandomFromApis(word);
-            if (word.getWord() != null && word.getDefinitions() != null) {
-                model.addAttribute("wordApi", word.getWord());
-                model.addAttribute("defText", word.getDefinitions());
-            }
-            if (word.getWord() == null || word.getDefinitions() == null) {
-                model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a moment and then try again.");
-                model.addAttribute("defText", "");
-            }
+            model.addAttribute("wordApi", word.getWord());
+            model.addAttribute("defText", word.getDefinitions());
             return "/user/index";
         }
         catch (Exception e) {
-            model.addAttribute("wordApi", "Oops! We encountered an error. Please wait a few moments and then try again.");
+            model.addAttribute("wordApi", "Oops! We encountered an error getting your word. Please try again.");
             model.addAttribute("defText", "");
             return "/user/index";
         }
     }
+
 }

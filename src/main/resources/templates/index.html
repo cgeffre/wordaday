@@ -11,6 +11,10 @@
 <div th:replace="fragments :: random-word"></div>
 
 <div class="section">
+    <button class="btn btn-primary" onClick="window.location.reload();">New Word</button>
+</div>
+
+<div class="section">
     <p><a th:href="@{/login}">Login</a> or <a th:href="@{/register}">register</a> to save words to your account and test yourself using flashcards!</p>
 </div>
 
