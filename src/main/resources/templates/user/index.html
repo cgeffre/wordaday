@@ -18,7 +18,7 @@
         <form method="post" th:object="${word}">
             <input type="hidden" th:id="name" th:name="name" th:value="${wordText}"/>
             <th:block th:each="definition : ${definitions}">
-<!--            <input type="hidden" th:id="definition" th:definitions="definition" th:value="${definition}"/>-->
+            <input type="hidden" th:id="definitions" th:definitions="definitions" th:value="${definition}"/>
             </th:block>
             <input type="submit" value="Save Word" class="btn btn-primary" style="margin-left:10px"/>
         </form>

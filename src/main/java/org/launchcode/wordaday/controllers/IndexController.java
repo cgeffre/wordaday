@@ -1,6 +1,7 @@
 package org.launchcode.wordaday.controllers;
 
 import org.launchcode.wordaday.models.Deck;
+import org.launchcode.wordaday.models.Definition;
 import org.launchcode.wordaday.models.User;
 import org.launchcode.wordaday.models.Word;
 import org.launchcode.wordaday.models.data.DeckRepository;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
 
 @Controller
 @RequestMapping
@@ -68,13 +68,13 @@ public class IndexController {
                 word.generateRandomFromApis(word);
             }
             model.addAttribute("wordText", word.getName());
-            model.addAttribute("definitionsText", word.getDefinitions());
-            return "/user/index";
+            model.addAttribute("definitions", word.getDefinitions());
+            return "user/index";
         }
         catch (Exception e) {
             model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
-            model.addAttribute("definitionsText", "");
-            return "/user/index";
+            model.addAttribute("definitions", "");
+            return "user/index";
         }
     }
 
@@ -86,8 +86,10 @@ public class IndexController {
         if (errors.hasErrors()) {
             return "redirect:/user";
         }
-
         wordRepository.save(newWord);
+        for (Definition definition : newWord.getDefinitions()) {
+            definitionRepository.save(definition);
+        }
         Deck deck = user.getDeck();
         deck.setWords(newWord);
         deckRepository.save(deck);
