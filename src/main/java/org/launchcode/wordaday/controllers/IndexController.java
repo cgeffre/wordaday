@@ -4,6 +4,7 @@ import org.launchcode.wordaday.models.Deck;
 import org.launchcode.wordaday.models.User;
 import org.launchcode.wordaday.models.Word;
 import org.launchcode.wordaday.models.data.DeckRepository;
+import org.launchcode.wordaday.models.data.DefinitionRepository;
 import org.launchcode.wordaday.models.data.UserRepository;
 import org.launchcode.wordaday.models.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping
@@ -31,6 +33,9 @@ public class IndexController {
     @Autowired
     DeckRepository deckRepository;
 
+    @Autowired
+    DefinitionRepository definitionRepository;
+
     @GetMapping("/")
     public String index(Model model) {
         try {
@@ -40,12 +45,12 @@ public class IndexController {
                 word.generateRandomFromApis(word);
             }
             model.addAttribute("wordText", word.getName());
-            model.addAttribute("definitionsText", word.getDefinitions());
+            model.addAttribute("definitions", word.getDefinitions());
             return "index";
         }
         catch (Exception e) {
             model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
-            model.addAttribute("definitionsText", "");
+            model.addAttribute("definitions", "");
             return "index";
         }
     }
@@ -81,6 +86,7 @@ public class IndexController {
         if (errors.hasErrors()) {
             return "redirect:/user";
         }
+
         wordRepository.save(newWord);
         Deck deck = user.getDeck();
         deck.setWords(newWord);

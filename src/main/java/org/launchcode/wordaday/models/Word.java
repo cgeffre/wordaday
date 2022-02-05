@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Word extends AbstractEntity {
@@ -16,7 +17,7 @@ public class Word extends AbstractEntity {
     private String name;
 
     @OneToMany
-    private ArrayList<String> definitions;
+    private List<Definition> definitions = new ArrayList<>();
 
     public Word() {}
 
@@ -31,12 +32,12 @@ public class Word extends AbstractEntity {
         this.definitions = new ArrayList<>();
         if (defArrayNode.isArray()) {
             for (JsonNode defText : defArrayNode) {
-                definitions.add(defText.textValue());
+                definitions.add(new Definition(word, defText.textValue()));
             }
         }
         if (!defArrayNode.isArray()) {
             JsonNode singleDef = defApi.get(0).get("shortdef");
-            definitions.add(singleDef.textValue());
+            definitions.add(new Definition(word, singleDef.textValue()));
         }
         word.setName(wordText);
         word.setDefinitions(definitions);
@@ -51,12 +52,11 @@ public class Word extends AbstractEntity {
         this.name = name;
     }
 
-    public ArrayList<String> getDefinitions() {
+    public List<Definition> getDefinitions() {
         return definitions;
     }
 
-    public void setDefinitions(ArrayList<String> definitions) {
+    public void setDefinitions(List<Definition> definitions) {
         this.definitions = definitions;
     }
-
 }
