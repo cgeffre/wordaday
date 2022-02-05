@@ -1,6 +1,8 @@
 package org.launchcode.wordaday.controllers;
 
+import org.launchcode.wordaday.models.Deck;
 import org.launchcode.wordaday.models.User;
+import org.launchcode.wordaday.models.data.DeckRepository;
 import org.launchcode.wordaday.models.data.UserRepository;
 import org.launchcode.wordaday.models.dto.LoginFormDTO;
 import org.launchcode.wordaday.models.dto.RegisterFormDTO;
@@ -24,6 +26,9 @@ public class AuthenticationController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    DeckRepository deckRepository;
 
     private static final String userSessionKey = "user";
 
@@ -80,6 +85,9 @@ public class AuthenticationController {
         }
 
         User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
+        Deck newDeck = new Deck();
+        deckRepository.save(newDeck);
+        newUser.setDeck(newDeck);
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 

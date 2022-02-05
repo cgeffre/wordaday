@@ -5,19 +5,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 public class Word extends AbstractEntity {
 
-    private String word;
+    private String name;
     private ArrayList<String> definitions;
 
     public Word() {}
@@ -40,22 +37,17 @@ public class Word extends AbstractEntity {
             JsonNode singleDef = defApi.get(0).get("shortdef");
             definitions.add(singleDef.textValue());
         }
-        if (definitions.size() == 0 || wordText == null) {
-            word.generateRandomFromApis(word);
-        }
-        if (definitions.size() > 0 && wordText != null) {
-            word.setWord(wordText);
-            word.setDefinitions(definitions);
-        }
+        word.setName(wordText);
+        word.setDefinitions(definitions);
         return word;
     }
 
-    public String getWord() {
-        return word;
+    public String getName() {
+        return name;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<String> getDefinitions() {
@@ -65,4 +57,5 @@ public class Word extends AbstractEntity {
     public void setDefinitions(ArrayList<String> definitions) {
         this.definitions = definitions;
     }
+
 }

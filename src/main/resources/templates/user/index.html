@@ -15,6 +15,15 @@
     <button class="btn btn-primary" onClick="window.location.reload();">New Word</button>
 </div>
 
+<th:block th:if="${definitionsText} != ''">
+    <form method="post" th:object="${word}">
+        <input type="hidden" th:id="name" th:name="name" th:value="${wordText}"/>
+        <input type="hidden" th:id="definitions" th:definitions="definitions" th:value="${definitionsText}"/>
+        <input type="submit" value="Save Word" class="btn btn-primary"/>
+        </form>
+    </div>
+</th:block>
+
 <div th:replace="fragments :: page-footer"></div>
 
 </body>
