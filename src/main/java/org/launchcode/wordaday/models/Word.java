@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 public class Word extends AbstractEntity {
 
     private String name;
+
+    @OneToMany
     private ArrayList<String> definitions;
 
     public Word() {}

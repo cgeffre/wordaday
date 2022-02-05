@@ -23,3 +23,8 @@ ul {
 .section {
     padding-top: 25px;
 }
+
+.footer {
+    padding-top: 50px;
+    font-size: smaller;
+}
