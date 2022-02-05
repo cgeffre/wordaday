@@ -15,11 +15,11 @@
     <button class="btn btn-primary" style="float:left;" onClick="window.location.reload();">New Word</button>
 
     <th:block th:if="${definitions} != ''">
-        <form method="post" th:object="${word}">
+        <form method="post" th:object="${wordDTO}">
             <input type="hidden" th:id="name" th:name="name" th:value="${wordText}"/>
-            <th:block th:each="definition : ${definitions}">
-            <input type="hidden" th:id="definitions" th:definitions="definitions" th:value="${definition}"/>
-            </th:block>
+            <input type="hidden" th:id="definition1" th:name="definition1" th:value="${definitions[0].text}"/>
+            <th:block th:if="${definitions.size} > 1"><input type="hidden" th:id="definition2" th:name="definition2" th:value="${definitions[1].text}"/></th:block>
+            <th:block th:if="${definitions.size} > 2"><input type="hidden" th:id="definition3" th:name="definition3" th:value="${definitions[2].text}"/></th:block>
             <input type="submit" value="Save Word" class="btn btn-primary" style="margin-left:10px"/>
         </form>
     </th:block>

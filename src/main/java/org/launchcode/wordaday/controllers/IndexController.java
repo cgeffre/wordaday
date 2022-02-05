@@ -8,6 +8,7 @@ import org.launchcode.wordaday.models.data.DeckRepository;
 import org.launchcode.wordaday.models.data.DefinitionRepository;
 import org.launchcode.wordaday.models.data.UserRepository;
 import org.launchcode.wordaday.models.data.WordRepository;
+import org.launchcode.wordaday.models.dto.WordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping
@@ -79,17 +81,36 @@ public class IndexController {
     }
 
     @PostMapping("/user")
-    public String saveRandomWord(@ModelAttribute @Valid Word newWord, Errors errors, HttpSession session) {
+    public String saveRandomWord(@ModelAttribute @Valid WordDTO wordDTO, Errors errors, HttpSession session) {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
         if (errors.hasErrors()) {
             return "redirect:/user";
         }
-        wordRepository.save(newWord);
-        for (Definition definition : newWord.getDefinitions()) {
-            definitionRepository.save(definition);
+        Word newWord = new Word();
+        newWord.setName(wordDTO.getName());
+        Definition definition1 = new Definition();
+        Definition definition2 = new Definition();
+        Definition definition3 = new Definition();
+        ArrayList<Definition> definitions = new ArrayList<>();
+        if (wordDTO.getDefinition1() != null) {
+            definition1.setText(wordDTO.getDefinition1());
+            definitionRepository.save(definition1);
+            definitions.add(definition1);
         }
+        if (wordDTO.getDefinition2() != null) {
+            definition2.setText(wordDTO.getDefinition2());
+            definitionRepository.save(definition2);
+            definitions.add(definition2);
+        }
+        if (wordDTO.getDefinition3() != null) {
+            definition3.setText(wordDTO.getDefinition3());
+            definitionRepository.save(definition3);
+            definitions.add(definition3);
+        }
+        newWord.setDefinitions(definitions);
+        wordRepository.save(newWord);
         Deck deck = user.getDeck();
         deck.setWords(newWord);
         deckRepository.save(deck);

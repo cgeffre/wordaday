@@ -32,12 +32,12 @@ public class Word extends AbstractEntity {
         this.definitions = new ArrayList<>();
         if (defArrayNode.isArray()) {
             for (JsonNode defText : defArrayNode) {
-                definitions.add(new Definition(word, defText.textValue()));
+                definitions.add(new Definition(defText.textValue()));
             }
         }
         if (!defArrayNode.isArray()) {
             JsonNode singleDef = defApi.get(0).get("shortdef");
-            definitions.add(new Definition(word, singleDef.textValue()));
+            definitions.add(new Definition(singleDef.textValue()));
         }
         word.setName(wordText);
         word.setDefinitions(definitions);
