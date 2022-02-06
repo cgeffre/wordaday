@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body class="container body-content">
+
+<div th:replace="fragments :: page-header"></div>
+
+<h1>View Word</h1>
+
+<div class="section">
+    <strong><p th:text="${word.name}"/></strong>
+    <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
+</div>
+
+<div class="section">
+    <p>Deleting this word will remove it from your personal list. Are you sure you want to remove this word?</p>
+    <form class="form-group" th:method="delete">
+        <input class="btn btn-primary" type="submit" value="Delete"/>
+    </form>
+</div>
+
+</body>
+</html>

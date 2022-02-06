@@ -6,7 +6,7 @@ import java.util.*;
 @Entity
 public class Deck extends AbstractEntity {
 
-    @OneToMany
+    @OneToMany(mappedBy="deck")
     private List<Word> words = new ArrayList<>();
 
     @OneToOne(mappedBy="deck")
@@ -36,4 +36,5 @@ public class Deck extends AbstractEntity {
     public void setUser(User user) {
         this.user = user;
     }
+
 }

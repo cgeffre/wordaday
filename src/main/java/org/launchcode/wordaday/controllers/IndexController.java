@@ -85,6 +85,7 @@ public class IndexController {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
+        Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
         if (errors.hasErrors()) {
             return "redirect:/user";
         }
@@ -93,25 +94,29 @@ public class IndexController {
         Definition definition1 = new Definition();
         Definition definition2 = new Definition();
         Definition definition3 = new Definition();
+        wordRepository.save(newWord);
         ArrayList<Definition> definitions = new ArrayList<>();
         if (wordDTO.getDefinition1() != null) {
             definition1.setText(wordDTO.getDefinition1());
+            definition1.setWord(newWord);
             definitionRepository.save(definition1);
             definitions.add(definition1);
         }
         if (wordDTO.getDefinition2() != null) {
             definition2.setText(wordDTO.getDefinition2());
+            definition2.setWord(newWord);
             definitionRepository.save(definition2);
             definitions.add(definition2);
         }
         if (wordDTO.getDefinition3() != null) {
             definition3.setText(wordDTO.getDefinition3());
+            definition3.setWord(newWord);
             definitionRepository.save(definition3);
             definitions.add(definition3);
         }
         newWord.setDefinitions(definitions);
+        newWord.setDeck(deck);
         wordRepository.save(newWord);
-        Deck deck = user.getDeck();
         deck.setWords(newWord);
         deckRepository.save(deck);
 

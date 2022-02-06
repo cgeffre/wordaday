@@ -11,10 +11,11 @@ import org.launchcode.wordaday.models.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,5 +46,21 @@ public class StudyController {
         return "user/study";
     }
 
+    @GetMapping("view/{wordId}")
+    public String viewWord(Model model, @PathVariable int wordId) {
+        Word word = wordRepository.findById(wordId).orElse(new Word());
+        model.addAttribute("word", word);
+        return "user/view";
+    }
+
+    @PostMapping("view/{wordId}")
+    public String processDeleteWord(@PathVariable int wordId) {
+        Word word = wordRepository.findById(wordId).orElse(new Word());
+        for (Definition definition : word.getDefinitions()) {
+            definitionRepository.delete(definition);
+        }
+        wordRepository.delete(word);
+        return "redirect:../study";
+    }
 
 }

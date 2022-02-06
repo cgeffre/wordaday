@@ -9,12 +9,14 @@
 
 <h1>My Words</h1>
 
+<p>Your saved words are below. Click on a word if you wish to view the word individually or delete it from the list.</p>
+
 <div>
     <list>
         <ul th:unless="${words.size() > 0}">No words to display</ul>
         <th:block th:each="word : ${words}">
             <div class="section">
-            <strong><p th:text="${word.name}"/></strong>
+            <strong><a th:href="@{/user/view/{id}(id=${word.id})}"><p th:text="${word.name}"/></a></strong>
             <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
             </div>
         </th:block>

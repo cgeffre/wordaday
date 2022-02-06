@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +17,10 @@ public class Word extends AbstractEntity {
 
     private String name;
 
-    @OneToMany
+    @ManyToOne
+    Deck deck;
+
+    @OneToMany(mappedBy="word")
     private List<Definition> definitions = new ArrayList<>();
 
     public Word() {}
@@ -58,5 +62,13 @@ public class Word extends AbstractEntity {
 
     public void setDefinitions(List<Definition> definitions) {
         this.definitions = definitions;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public void setDeck(Deck deck) {
+        this.deck = deck;
     }
 }
