@@ -1,16 +1,13 @@
 package org.launchcode.wordaday.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Deck extends AbstractEntity {
 
     @OneToMany
-    private Set<Word> words = new HashSet<>();
+    private List<Word> words = new ArrayList<>();
 
     @OneToOne(mappedBy="deck")
     private User user;
@@ -24,7 +21,7 @@ public class Deck extends AbstractEntity {
         return words;
     }
 
-    public Set<Word> getWords() {
+    public List<Word> getWords() {
         return words;
     }
 
