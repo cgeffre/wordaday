@@ -11,12 +11,9 @@ import org.launchcode.wordaday.models.data.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -47,10 +44,17 @@ public class StudyController {
     }
 
     @GetMapping("view/{wordId}")
-    public String viewWord(Model model, @PathVariable int wordId) {
+    public String viewWord(Model model, @PathVariable int wordId, HttpSession session) {
+        String userSessionKey = "user";
+        Integer userId = (Integer) session.getAttribute(userSessionKey);
+        User user = userRepository.findById(userId).orElse(new User());
+        Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
         Word word = wordRepository.findById(wordId).orElse(new Word());
-        model.addAttribute("word", word);
-        return "user/view";
+        if (deck.getId() == word.getDeck().getId()) {
+            model.addAttribute("word", word);
+            return "user/view";
+        }
+        return "redirect:..";
     }
 
     @PostMapping("view/{wordId}")
