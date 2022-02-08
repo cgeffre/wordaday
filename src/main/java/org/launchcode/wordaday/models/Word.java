@@ -34,16 +34,23 @@ public class Word extends AbstractEntity {
         JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
         ArrayNode defArrayNode = (ArrayNode) defApi.get(0).get("shortdef");
         this.definitions = new ArrayList<>();
-        if (defArrayNode.isArray()) {
-            for (JsonNode defText : defArrayNode) {
-                definitions.add(new Definition(defText.textValue()));
-            }
-        }
-        if (!defArrayNode.isArray()) {
-            JsonNode singleDef = defApi.get(0).get("shortdef");
-            definitions.add(new Definition(singleDef.textValue()));
+        for (JsonNode defText : defArrayNode) {
+            definitions.add(new Definition(defText.textValue()));
         }
         word.setName(wordText);
+        word.setDefinitions(definitions);
+        return word;
+    }
+
+    public Word addDefinitions(Word word) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + word.getName() + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
+        JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
+        ArrayNode defArrayNode = (ArrayNode) defApi.get(0).get("shortdef");
+        this.definitions = new ArrayList<>();
+        for (JsonNode defText : defArrayNode) {
+            definitions.add(new Definition(defText.textValue()));
+        }
         word.setDefinitions(definitions);
         return word;
     }

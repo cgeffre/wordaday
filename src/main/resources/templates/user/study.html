@@ -11,6 +11,16 @@
 
 <p>Your saved words are below. Click on a word if you wish to view the word individually or delete it from the list.</p>
 
+<p>If you'd like to add a specific word to your list, enter it here, and we'll add it if it's in our dictionary!</p>
+
+<form method="post" style="max-width:200px;" th:object="${wordDTO}">
+    <div class="form-group">
+        <input class="form-control" th:name="name" />
+    </div>
+    <input type="submit" value="Add Word" class="btn btn-primary"/>
+</form>
+<p class="error" th:text="${newWordError}"/>
+
 <div>
     <list>
         <ul th:unless="${words.size() > 0}">No words to display</ul>
