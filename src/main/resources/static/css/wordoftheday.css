@@ -27,4 +27,18 @@ ul {
 .footer {
     padding-top: 50px;
     font-size: smaller;
+    float: bottom;
+}
+
+.word-container {
+    height: 120px;
+    position: relative;
+}
+
+.word-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }

@@ -1,11 +1,13 @@
 package org.launchcode.wordaday.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Definition extends AbstractEntity {
 
+    @Column(length=500)
     private String text;
 
     @ManyToOne
