@@ -40,21 +40,23 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(Model model) {
-        try {
-            Word word = new Word();
-            word.generateRandomFromApis(word);
-            if (word.getName() == null || word.getDefinitions().size() == 0) {
+        Word word = new Word();
+        int count = 0;
+        int maxTries = 2;
+        while (word.getDefinitions().size() < 1) {
+            try {
                 word.generateRandomFromApis(word);
+                model.addAttribute("wordText", word.getName());
+                model.addAttribute("definitions", word.getDefinitions());
+            } catch (Exception e) {
+                count++;
+                if (count == maxTries) {
+                    model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
+                    model.addAttribute("definitions", "");
+                }
             }
-            model.addAttribute("wordText", word.getName());
-            model.addAttribute("definitions", word.getDefinitions());
-            return "index";
         }
-        catch (Exception e) {
-            model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
-            model.addAttribute("definitions", "");
-            return "index";
-        }
+        return "index";
     }
 
     @GetMapping("/user")
@@ -63,21 +65,23 @@ public class IndexController {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
         model.addAttribute("username", user.getUsername());
-        try {
-            Word word = new Word();
-            word.generateRandomFromApis(word);
-            if (word.getName() == null || word.getDefinitions().size() == 0) {
+        Word word = new Word();
+        int count = 0;
+        int maxTries = 2;
+        while (word.getDefinitions().size() < 1) {
+            try {
                 word.generateRandomFromApis(word);
+                model.addAttribute("wordText", word.getName());
+                model.addAttribute("definitions", word.getDefinitions());
+            } catch (Exception e) {
+                count++;
+                if (count == maxTries) {
+                    model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
+                    model.addAttribute("definitions", "");
+                }
             }
-            model.addAttribute("wordText", word.getName());
-            model.addAttribute("definitions", word.getDefinitions());
-            return "user/index";
         }
-        catch (Exception e) {
-            model.addAttribute("wordText", "Oops! We encountered an error getting your word. Please try again.");
-            model.addAttribute("definitions", "");
-            return "user/index";
-        }
+        return "index";
     }
 
     @PostMapping("/user")

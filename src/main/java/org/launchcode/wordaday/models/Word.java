@@ -26,7 +26,7 @@ public class Word extends AbstractEntity {
     public Word() {}
 
     public Word generateRandomFromApis(Word word) throws IOException {
-        this.definitions = new ArrayList<>();
+        word.setDefinitions(definitions);
         URL jsonWordUrl = new URL("https://random-word-api.herokuapp.com/word?number=1");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode wordApi = mapper.readValue(jsonWordUrl, JsonNode.class);
@@ -34,11 +34,11 @@ public class Word extends AbstractEntity {
         URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + wordText + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
         JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
         ArrayNode defArrayNode = (ArrayNode) defApi.get(0).get("shortdef");
+        this.definitions = new ArrayList<>();
         for (JsonNode defText : defArrayNode) {
             definitions.add(new Definition(defText.textValue()));
         }
         word.setName(wordText);
-        word.setDefinitions(definitions);
         return word;
     }
 
