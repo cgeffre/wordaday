@@ -81,7 +81,7 @@ public class IndexController {
                 }
             }
         }
-        return "index";
+        return "user/index";
     }
 
     @PostMapping("/user")
