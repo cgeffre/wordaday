@@ -7,7 +7,10 @@
 <h1>Login</h1>
 
 <div th:replace="fragments :: page-header-login"></div>
-<form method="post">
+
+<p>Enter your username and password to login. Don't have an account? <a href="/register">Click here to register!</a></p>
+
+<form method="post" class="section">
     <div class="form-group">
         <label th:for="username">Username
             <input class="form-control" th:field="${loginFormDTO.username}">
@@ -23,8 +26,6 @@
 
     <input type="submit" class="btn btn-primary" value="Login" />
 </form>
-<br>
-<p>Don't have an account? <a href="/register">Click here to register!</a></p>
 
 </body>
 </html>
