@@ -43,11 +43,11 @@ public class Word extends AbstractEntity {
     }
 
     public Word addDefinitions(Word word) throws IOException {
+        this.definitions = new ArrayList<>();
         ObjectMapper mapper = new ObjectMapper();
         URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + word.getName() + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
         JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
         ArrayNode defArrayNode = (ArrayNode) defApi.get(0).get("shortdef");
-        this.definitions = new ArrayList<>();
         for (JsonNode defText : defArrayNode) {
             definitions.add(new Definition(defText.textValue()));
         }

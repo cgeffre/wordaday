@@ -46,7 +46,7 @@ public class StudyController {
     }
 
     @PostMapping("study")
-    public String addWord (@ModelAttribute @Valid WordDTO wordDTO, HttpSession session) {
+    public String addWord (@ModelAttribute @Valid WordDTO wordDTO, HttpSession session, Model model) {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
@@ -82,12 +82,12 @@ public class StudyController {
                 deckRepository.save(deck);
                 return "redirect:../user/study";
             }
-            if (newWord.getDefinitions().size() == 0) {
-                return "redirect:../user/study";
-            }
         }
         catch (Exception e) {
-            return "redirect:../user/study";
+            List<Word> words = deck.getWords();
+            model.addAttribute("newWordError", "Sorry, we couldn't find that word.");
+            model.addAttribute("words", words);
+            return "user/study";
         }
         return "redirect:../user/study";
     }

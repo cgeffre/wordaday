@@ -7,7 +7,7 @@
     <link th:href="@{/css/wordoftheday.css}" rel="stylesheet" />
     <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
 
-    <title th:text="'Word of the Day' + ${title == null ? '' : ' :: ' + title}">Word of the Day</title>
+    <title th:text="'Word-A-Day' + ${title == null ? '' : ' :: ' + title}">Word-A-Day</title>
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 <div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a th:href="@{/user}" class="navbar-brand">Word of the Day</a>
+            <a th:href="@{/user}" class="navbar-brand">Word-A-Day</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -29,7 +29,7 @@
 <div th:fragment="page-header-login" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a th:href="@{/}" class="navbar-brand">Word of the Day</a>
+            <a th:href="@{/}" class="navbar-brand">Word-A-Day</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
