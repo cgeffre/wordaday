@@ -48,7 +48,7 @@
 
 <div th:fragment="random-word" class="word-container">
     <div class="word-center">
-    <strong><p th:text="${wordText}"></p></strong>
+    <p th:text="${wordText}" class="word"></p>
     <th:block th:if="${definitions} != ''">
         <ol th:each="definition : ${definitions}" th:text="'- ' + ${definition.text}"/>
     </th:block>

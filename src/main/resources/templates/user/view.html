@@ -10,7 +10,7 @@
 <h1>View Word</h1>
 
 <div class="section">
-    <strong><p th:text="${word.name}"/></strong>
+    <p th:text="${word.name}" class="word"/>
     <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
 </div>
 

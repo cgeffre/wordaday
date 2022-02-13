@@ -7,7 +7,8 @@
 <script th:inline="javascript">
     window.onload = function () {
     let wordCount = /*[[${words.size()}]]*/;
-    flashcards(wordCount);
+    let scoreDisplay = document.querySelector('#scoreDisplay');
+    flashcards(wordCount, scoreDisplay);
     };
 </script>
 
@@ -15,11 +16,15 @@
 
 <h1>Practice</h1>
 
+<div id="scoreDisplay" class="score-display">
+    <p></p>
+</div>
+
 <div class="word-container">
     <list>
         <ul th:unless="${words.size() > 0}" class="error">No words to display yet</ul>
         <div hidden th:each="word : ${words}" th:id="${words.indexOf(word)+1}">
-            <strong><p th:text="${word.name}"/></strong>
+            <p th:text="${word.name}" class="word"/>
             <div hidden th:id="-${words.indexOf(word)+1}">
                 <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
             </div>
@@ -27,11 +32,11 @@
     </list>
 </div>
 
-<div class="section">
+<div class="section" id="definitionDiv">
     <button type="button" id="showDefinitions" class="btn btn-success">Definition</button>
 </div>
 
-<div class="section" style="float:left;">
+<div class="section" style="float:left;" id="answerDiv">
     <button type="button" id="rightAnswer" class="btn btn-primary" style="float:left;">Right</button>
     <button type="button" id="wrongAnswer" class="btn btn-primary" style="margin-left:10px">Wrong</button>
 </div>

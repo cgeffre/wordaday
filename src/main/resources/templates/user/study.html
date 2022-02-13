@@ -26,7 +26,7 @@
         <ul th:unless="${words.size() > 0}" class="error">No words to display yet</ul>
         <th:block th:each="word : ${words}">
             <div class="section">
-            <strong><a th:href="@{/user/view/{id}(id=${word.id})}"><p th:text="${word.name}"/></a></strong>
+            <a th:href="@{/user/view/{id}(id=${word.id})}"><p th:text="${word.name}" class="word"/></a>
             <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
             </div>
         </th:block>

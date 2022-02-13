@@ -42,3 +42,14 @@ ul {
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+
+.word {
+    font-size: larger;
+    font-weight: bold;
+}
+
+.score-display {
+    font-size: larger;
+    color: green;
+    font-weight: bold;
+}
