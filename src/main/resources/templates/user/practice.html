@@ -18,9 +18,9 @@
 <div class="word-container">
     <list>
         <ul th:unless="${words.size() > 0}" class="error">No words to display yet</ul>
-        <div hidden th:each="word : ${words}" th:id="${words.indexOf(word)}">
+        <div hidden th:each="word : ${words}" th:id="${words.indexOf(word)+1}">
             <strong><p th:text="${word.name}"/></strong>
-            <div hidden th:id="definitions">
+            <div hidden th:id="-${words.indexOf(word)+1}">
                 <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
             </div>
         </div>

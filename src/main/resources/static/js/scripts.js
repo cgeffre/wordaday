@@ -1,6 +1,6 @@
 // Iterates through word flashcards; displays and hides definitions; tracks correct and incorrect answers
 function flashcards(wordCount) {
-    let counter = 0;
+    let counter = 1;
     let rightAnswer = 0;
     let wrongAnswer = 0;
 
@@ -9,7 +9,7 @@ function flashcards(wordCount) {
     document.getElementById("rightAnswer").addEventListener('click', function(event) {
         document.getElementById(counter).hidden = true;
         document.getElementById(counter+1).hidden = false;
-        correctAnswer++;
+        rightAnswer++;
         counter++;
     });
 
@@ -21,7 +21,7 @@ function flashcards(wordCount) {
     });
 
     document.getElementById("showDefinitions").addEventListener('click', function() {
-        document.getElementById("definitions").hidden = false;
+        document.getElementById(-(counter)).hidden = false;
     });
 
 }
