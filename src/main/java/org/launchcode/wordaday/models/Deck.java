@@ -14,7 +14,7 @@ public class Deck extends AbstractEntity {
 
     public Deck() {}
 
-    public ArrayList<Word> deckRandomizer(Deck aDeck) {
+    public ArrayList<Word> randomizeDeck(Deck aDeck) {
         ArrayList<Word> words = new ArrayList<>();
         words.addAll(aDeck.getWords());
         Collections.shuffle(words);

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body class="container body-content">
+<script th:inline="javascript">
+    window.onload = function () {
+    let wordCount = /*[[${words.size()}]]*/;
+    flashcards(wordCount);
+    };
+</script>
+
+<div th:replace="fragments :: page-header"></div>
+
+<h1>Practice</h1>
+
+<div class="section">
+    <list>
+        <ul th:unless="${words.size() > 0}" class="error">No words to display yet</ul>
+        <div hidden th:each="word : ${words}" th:id="${words.indexOf(word)}">
+            <strong><p th:text="${word.name}"/></strong>
+            <div id="${-(words.indexOf(word))}">
+                <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
+            </div>
+        </div>
+    </list>
+</div>
+
+<button type="button" id="showDefinitions" class="btn btn-info">Definition</button>
+
+</body>
+</html>
