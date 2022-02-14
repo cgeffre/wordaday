@@ -53,3 +53,8 @@ ul {
     color: green;
     font-weight: bold;
 }
+
+.study-display {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
