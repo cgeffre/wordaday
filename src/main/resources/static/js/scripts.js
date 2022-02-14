@@ -1,4 +1,4 @@
-// Iterates through word flashcards; displays and hides definitions; tracks correct and incorrect answers
+// Iterates through word flashcards; displays and hides definitions; tracks correct and incorrect answers; displays results
 function flashcards(wordCount, scoreDisplay) {
     let counter = 1;
     let rightAnswers = 0;
@@ -16,8 +16,10 @@ function flashcards(wordCount, scoreDisplay) {
         if (counter === wordCount+1) {
             document.getElementById("flashcardButtons").hidden = true;
             scoreDisplay.innerHTML = "You got " + rightAnswers + " out of " + wordCount + " words correct!";
+            document.getElementById("scoreDisplay").hidden = false;
             if (wrongAnswers.length > 0) {
               studyDisplay.innerHTML = "Here are the words you should review:"
+              document.getElementById("studyDisplay").hidden = false;
               for (let i = 0; i < wrongAnswers.length; i++) {
                 document.getElementById(wrongAnswers[i]).hidden = false;
                 document.getElementById(-(wrongAnswers[i])).hidden = false;
@@ -36,8 +38,10 @@ function flashcards(wordCount, scoreDisplay) {
         if (counter === wordCount+1) {
             document.getElementById("flashcardButtons").hidden = true;
             scoreDisplay.innerHTML = "You got " + rightAnswers + " out of " + wordCount + " words correct!";
+            document.getElementById("scoreDisplay").hidden = false;
             if (wrongAnswers.length > 0) {
               studyDisplay.innerHTML = "Here are the words you should review:"
+              document.getElementById("studyDisplay").hidden = false;
               for (let i = 0; i < wrongAnswers.length; i++) {
                 document.getElementById(wrongAnswers[i]).hidden = false;
                 document.getElementById(-(wrongAnswers[i])).hidden = false;
