@@ -4,6 +4,7 @@
 </head>
 
 <body class="container body-content">
+
 <script th:inline="javascript">
     window.onload = function () {
     let wordCount = /*[[${words.size()}]]*/;
@@ -32,13 +33,10 @@
     </list>
 </div>
 
-<div class="section" id="definitionDiv">
-    <button type="button" id="showDefinitions" class="btn btn-success">Definition</button>
-</div>
-
-<div class="section" style="float:left;" id="answerDiv">
-    <button type="button" id="rightAnswer" class="btn btn-primary" style="float:left;">Right</button>
-    <button type="button" id="wrongAnswer" class="btn btn-primary" style="margin-left:10px">Wrong</button>
+<div class="section" id="flashcardButtons">
+    <button type="button" id="showDefinitions" class="btn btn-success" style="float:left;">Definition</button>
+    <button type="button" id="rightAnswer" class="btn btn-primary" style="margin-left:10px;">Right</button>
+    <button type="button" id="wrongAnswer" class="btn btn-primary" style="margin-left:10px;">Wrong</button>
 </div>
 
 </body>

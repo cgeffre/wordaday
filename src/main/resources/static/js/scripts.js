@@ -14,8 +14,7 @@ function flashcards(wordCount, scoreDisplay) {
             document.getElementById(counter).hidden = false;
         }
         if (counter === wordCount+1) {
-            document.getElementById("definitionDiv").hidden = true;
-            document.getElementById("answerDiv").hidden = true;
+            document.getElementById("flashcardButtons").hidden = true;
             return scoreDisplay.innerHTML = "You got " + rightAnswer + " out of " + wordCount + " words correct!";
         }
     });
@@ -28,8 +27,7 @@ function flashcards(wordCount, scoreDisplay) {
             document.getElementById(counter).hidden = false;
         }
         if (counter === wordCount+1) {
-            document.getElementById("definitionDiv").hidden = true;
-            document.getElementById("answerDiv").hidden = true;
+            document.getElementById("flashcardButtons").hidden = true;
             return scoreDisplay.innerHTML = "You got " + rightAnswer + " out of " + wordCount + " words correct!";
         }
     });
