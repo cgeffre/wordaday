@@ -15,9 +15,13 @@
 </div>
 
 <div class="section">
-    <p>Deleting this word will remove it from your personal list.</p>
-    <form class="form-group" th:method="delete">
-        <input class="btn btn-primary" type="submit" value="Delete"/>
+    <form class="form-group" method="post">
+        <p>Enter any notes you would like to save for this word:</p>
+        <input type="text" name="newNotes"/>
+        <p class="error">Delete Word</p>
+        <input type="checkbox" name="delete"/>
+        <input type="hidden" name="delete" value="false"/>
+        <input class="btn btn-primary" type="submit" value="Update"/>
     </form>
 </div>
 
