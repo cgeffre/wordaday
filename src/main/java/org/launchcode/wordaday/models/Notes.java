@@ -10,7 +10,7 @@ public class Notes extends AbstractEntity {
     @OneToOne(mappedBy="notes")
     private Word word;
 
-    @Column(length=1000)
+    @Column(length=500)
     private String notes;
 
     public Notes(){}

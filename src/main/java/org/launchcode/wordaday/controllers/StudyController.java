@@ -100,20 +100,26 @@ public class StudyController {
         User user = userRepository.findById(userId).orElse(new User());
         Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
         Word word = wordRepository.findById(wordId).orElse(new Word());
+        Notes notes = word.getNotes();
         if (deck.getId() == word.getDeck().getId()) {
             model.addAttribute("word", word);
+            model.addAttribute("notes", notes.getNotes());
             return "user/view";
         }
         return "redirect:..";
     }
 
     @PostMapping("view/{wordId}")
-    public String processDeleteWord(@PathVariable int wordId, @RequestParam(required = false) String newNotes, @RequestParam(required=false) boolean delete) {
+    public String processDeleteWord(@PathVariable int wordId, @RequestParam(required = false) String newNotes, @RequestParam(required=false) boolean delete, Model model) {
         Word word = wordRepository.findById(wordId).orElse(new Word());
         Notes notes = word.getNotes();
         if (newNotes != null && !delete) {
             notes.setNotes(newNotes);
             notesRepository.save(notes);
+            model.addAttribute("word", word);
+            model.addAttribute("notes", notes.getNotes());
+            model.addAttribute("saved", "Your notes have been saved!");
+            return "user/view";
         }
         if (delete) {
             for (Definition definition : word.getDefinitions()) {
