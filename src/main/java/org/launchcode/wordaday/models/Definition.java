@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Definition extends AbstractEntity {
 
-    @Column(length=500)
+    @Column(length=750)
     private String text;
 
     @ManyToOne

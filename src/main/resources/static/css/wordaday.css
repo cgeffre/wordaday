@@ -62,3 +62,7 @@ ul {
 .success {
     color: green;
 }
+
+.character-counter {
+    font-size: smaller;
+}

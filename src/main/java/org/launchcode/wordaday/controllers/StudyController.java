@@ -49,7 +49,6 @@ public class StudyController {
         User user = userRepository.findById(userId).orElse(new User());
         Word newWord = new Word();
         newWord.setName(wordDTO.getName().toLowerCase());
-        Notes notes = new Notes();
         Deck deck = user.getDeck();
         try {
             newWord.addDefinitions(newWord);
@@ -74,13 +73,14 @@ public class StudyController {
                     definition3.setWord(newWord);
                     definitionRepository.save(definition3);
                 }
+                Notes notes = new Notes();
+                notes.setWord(newWord);
                 notesRepository.save(notes);
                 newWord.setDeck(deck);
                 newWord.setNotes(notes);
                 wordRepository.save(newWord);
                 deck.setWords(newWord);
                 deckRepository.save(deck);
-                notes.setWord(newWord);
                 return "redirect:../user/study";
             }
         }

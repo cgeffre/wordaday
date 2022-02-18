@@ -18,7 +18,8 @@
     <form class="form-group" method="post">
         <div class="section">
             <p>Enter any notes you would like to save for this word:</p>
-            <textarea rows="4" cols="50" wrap="soft" type="text" name="newNotes" maxlength="500" th:text="${notes}"></textarea>
+            <textarea onblur="characterCounter(this,this.form.counter,500);" onkeyup="characterCounter(this,this.form.counter,500);"  rows="4" cols="50" wrap="soft" type="text" name="newNotes" maxlength="500" th:text="${notes}"></textarea>
+            <p class="character-counter"><input onblur="characterCounter(this.form.recipients,this,500);" disabled onfocus="this.blur();" tabindex="999" maxlength="1" size="1" value="500" name="counter" class="character-counter"> characters remaining</p>
         </div>
         <div class="section">
             <input type="checkbox" name="delete"><strong class="error">  Delete Word:</strong> This will remove the word and any associated notes from your account

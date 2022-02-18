@@ -54,3 +54,15 @@ function flashcards(wordCount, scoreDisplay) {
         document.getElementById(-(counter)).hidden = false;
     });
 }
+
+// Counts remaining characters in notes textarea on individual word view
+function characterCounter(field, count, maxLimit) {
+    if (field.value.length > maxLimit) {
+        field.value = field.value.substring(0, maxLimit);
+        field.blur();
+        field.focus();
+        return false;
+    } else {
+        count.value = maxLimit - field.value.length;
+    }
+}
