@@ -1,13 +1,7 @@
 package org.launchcode.wordaday.controllers;
 
-import org.launchcode.wordaday.models.Deck;
-import org.launchcode.wordaday.models.Definition;
-import org.launchcode.wordaday.models.User;
-import org.launchcode.wordaday.models.Word;
-import org.launchcode.wordaday.models.data.DeckRepository;
-import org.launchcode.wordaday.models.data.DefinitionRepository;
-import org.launchcode.wordaday.models.data.UserRepository;
-import org.launchcode.wordaday.models.data.WordRepository;
+import org.launchcode.wordaday.models.*;
+import org.launchcode.wordaday.models.data.*;
 import org.launchcode.wordaday.models.dto.WordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +31,9 @@ public class IndexController {
 
     @Autowired
     DefinitionRepository definitionRepository;
+
+    @Autowired
+    NotesRepository notesRepository;
 
     @GetMapping("/")
     public String index(Model model) {
@@ -90,6 +87,7 @@ public class IndexController {
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
         Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
+        Notes notes = new Notes();
         if (errors.hasErrors()) {
             return "redirect:/user";
         }
@@ -119,11 +117,15 @@ public class IndexController {
                 definitionRepository.save(definition3);
                 definitions.add(definition3);
             }
+            notes.setWord(newWord);
+            notesRepository.save(notes);
             newWord.setDefinitions(definitions);
             newWord.setDeck(deck);
+            newWord.setNotes(notes);
             wordRepository.save(newWord);
             deck.setWords(newWord);
             deckRepository.save(deck);
+
 
             return "redirect:/user";
         }

@@ -14,10 +14,20 @@
     <ol th:each="definition : ${word.definitions}" th:text="'- ' + ${definition.text}"/>
 </div>
 
-<div class="section">
-    <p>Deleting this word will remove it from your personal list.</p>
-    <form class="form-group" th:method="delete">
-        <input class="btn btn-primary" type="submit" value="Delete"/>
+<div>
+    <form class="form-group" method="post">
+        <div class="section">
+            <p>Enter any notes you would like to save for this word:</p>
+            <textarea rows="4" cols="50" wrap="soft" type="text" name="newNotes" maxlength="500" th:text="${notes}"></textarea>
+        </div>
+        <div class="section">
+            <input type="checkbox" name="delete"><strong class="error">  Delete Word:</strong> This will remove the word and any associated notes from your account
+            <input type="hidden" name="delete" value="false"/>
+        </div>
+        <div class="section">
+            <input class="btn btn-primary" type="submit" value="Update"/>
+            <p class="success" th:text="${saved}"/>
+        </div>
     </form>
 </div>
 

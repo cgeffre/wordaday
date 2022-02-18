@@ -40,4 +40,5 @@ public class WordDTO {
     public void setDefinition3(String definition3) {
         this.definition3 = definition3;
     }
+
 }

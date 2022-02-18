@@ -1,13 +1,7 @@
 package org.launchcode.wordaday.controllers;
 
-import org.launchcode.wordaday.models.Deck;
-import org.launchcode.wordaday.models.Definition;
-import org.launchcode.wordaday.models.User;
-import org.launchcode.wordaday.models.Word;
-import org.launchcode.wordaday.models.data.DeckRepository;
-import org.launchcode.wordaday.models.data.DefinitionRepository;
-import org.launchcode.wordaday.models.data.UserRepository;
-import org.launchcode.wordaday.models.data.WordRepository;
+import org.launchcode.wordaday.models.*;
+import org.launchcode.wordaday.models.data.*;
 import org.launchcode.wordaday.models.dto.WordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +28,9 @@ public class StudyController {
     @Autowired
     DefinitionRepository definitionRepository;
 
+    @Autowired
+    NotesRepository notesRepository;
+
     @GetMapping("study")
     public String studyView(Model model, HttpSession session) {
         String userSessionKey = "user";
@@ -52,6 +49,7 @@ public class StudyController {
         User user = userRepository.findById(userId).orElse(new User());
         Word newWord = new Word();
         newWord.setName(wordDTO.getName().toLowerCase());
+        Notes notes = new Notes();
         Deck deck = user.getDeck();
         try {
             newWord.addDefinitions(newWord);
@@ -76,10 +74,13 @@ public class StudyController {
                     definition3.setWord(newWord);
                     definitionRepository.save(definition3);
                 }
+                notesRepository.save(notes);
                 newWord.setDeck(deck);
+                newWord.setNotes(notes);
                 wordRepository.save(newWord);
                 deck.setWords(newWord);
                 deckRepository.save(deck);
+                notes.setWord(newWord);
                 return "redirect:../user/study";
             }
         }
@@ -99,20 +100,34 @@ public class StudyController {
         User user = userRepository.findById(userId).orElse(new User());
         Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
         Word word = wordRepository.findById(wordId).orElse(new Word());
+        Notes notes = word.getNotes();
         if (deck.getId() == word.getDeck().getId()) {
             model.addAttribute("word", word);
+            model.addAttribute("notes", notes.getNotes());
             return "user/view";
         }
         return "redirect:..";
     }
 
     @PostMapping("view/{wordId}")
-    public String processDeleteWord(@PathVariable int wordId) {
+    public String processDeleteWord(@PathVariable int wordId, @RequestParam(required = false) String newNotes, @RequestParam(required=false) boolean delete, Model model) {
         Word word = wordRepository.findById(wordId).orElse(new Word());
-        for (Definition definition : word.getDefinitions()) {
-            definitionRepository.delete(definition);
+        Notes notes = word.getNotes();
+        if (newNotes != null && !delete) {
+            notes.setNotes(newNotes);
+            notesRepository.save(notes);
+            model.addAttribute("word", word);
+            model.addAttribute("notes", notes.getNotes());
+            model.addAttribute("saved", "Your notes have been saved!");
+            return "user/view";
         }
-        wordRepository.delete(word);
+        if (delete) {
+            for (Definition definition : word.getDefinitions()) {
+                definitionRepository.delete(definition);
+            }
+            wordRepository.delete(word);
+            notesRepository.delete(notes);
+        }
         return "redirect:../study";
     }
 
