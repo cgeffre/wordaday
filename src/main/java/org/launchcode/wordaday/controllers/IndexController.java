@@ -82,15 +82,12 @@ public class IndexController {
     }
 
     @PostMapping("/user")
-    public String saveRandomWord(@ModelAttribute @Valid WordDTO wordDTO, Errors errors, HttpSession session) {
+    public String saveRandomWord(@ModelAttribute @Valid WordDTO wordDTO, HttpSession session) {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
         Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
         Notes notes = new Notes();
-        if (errors.hasErrors()) {
-            return "redirect:/user";
-        }
         try {
             Word newWord = new Word();
             newWord.setName(wordDTO.getName());
@@ -125,7 +122,6 @@ public class IndexController {
             wordRepository.save(newWord);
             deck.setWords(newWord);
             deckRepository.save(deck);
-
 
             return "redirect:/user";
         }

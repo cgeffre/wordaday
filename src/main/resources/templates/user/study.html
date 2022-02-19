@@ -19,7 +19,8 @@
     </div>
     <input type="submit" value="Add Word" class="btn btn-primary"/>
 </form>
-<p class="error" th:text="${newWordError}"/>
+<div class="success" th:text="${wordAdded}"/>
+<div class="error" th:text="${newWordError}"/>
 
 <div>
     <list>

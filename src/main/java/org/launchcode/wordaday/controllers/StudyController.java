@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -47,50 +48,44 @@ public class StudyController {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
+        Deck deck = deckRepository.findById(user.getDeck().getId()).orElse(new Deck());
+        Notes notes = new Notes();
         Word newWord = new Word();
         newWord.setName(wordDTO.getName().toLowerCase());
-        Deck deck = user.getDeck();
         try {
             newWord.addDefinitions(newWord);
             if (newWord.getDefinitions().size() > 0) {
-                newWord.setDeck(deck);
-                Definition definition1 = new Definition();
-                Definition definition2 = new Definition();
-                Definition definition3 = new Definition();
                 wordRepository.save(newWord);
-                if (newWord.getDefinitions().get(0) != null) {
-                    definition1 = newWord.getDefinitions().get(0);
-                    definition1.setWord(newWord);
-                    definitionRepository.save(definition1);
-                }
-                if (newWord.getDefinitions().get(1) != null) {
-                    definition2 = newWord.getDefinitions().get(1);
-                    definition2.setWord(newWord);
-                    definitionRepository.save(definition2);
-                }
-                if (newWord.getDefinitions().get(2) != null) {
-                    definition3 = newWord.getDefinitions().get(2);
-                    definition3.setWord(newWord);
-                    definitionRepository.save(definition3);
-                }
-                Notes notes = new Notes();
+                deck.setWords(newWord);
+                deckRepository.save(deck);
                 notes.setWord(newWord);
                 notesRepository.save(notes);
                 newWord.setDeck(deck);
                 newWord.setNotes(notes);
-                wordRepository.save(newWord);
-                deck.setWords(newWord);
-                deckRepository.save(deck);
-                return "redirect:../user/study";
+                Definition definition1 = newWord.getDefinitions().get(0);
+                definition1.setWord(newWord);
+                definitionRepository.save(definition1);
             }
-        }
-        catch (Exception e) {
+            if (newWord.getDefinitions().size() > 1) {
+                Definition definition2 = newWord.getDefinitions().get(1);
+                definition2.setWord(newWord);
+                definitionRepository.save(definition2);
+            }
+            if (newWord.getDefinitions().size() > 2) {
+                Definition definition3 = newWord.getDefinitions().get(2);
+                definition3.setWord(newWord);
+                definitionRepository.save(definition3);
+            }
+            wordRepository.save(newWord);
+            List<Word> words = deck.getWords();
+            model.addAttribute("words", words);
+            model.addAttribute("wordAdded", "Your word has been added!");
+        } catch (Exception e) {
             List<Word> words = deck.getWords();
             model.addAttribute("newWordError", "Sorry, we couldn't find that word.");
             model.addAttribute("words", words);
-            return "user/study";
         }
-        return "redirect:../user/study";
+        return "user/study";
     }
 
     @GetMapping("view/{wordId}")
