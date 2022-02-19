@@ -86,4 +86,5 @@ public class Word extends AbstractEntity {
     public void setNotes(Notes notes) {
         this.notes = notes;
     }
+
 }

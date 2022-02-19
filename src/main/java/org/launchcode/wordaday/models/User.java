@@ -8,7 +8,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 public class User extends AbstractEntity {
@@ -52,5 +51,9 @@ public class User extends AbstractEntity {
 
     public void setDeck(Deck deck) {
         this.deck = deck;
+    }
+
+    public void updatePassword(String newPassword) {
+        this.pwHash = encoder.encode(newPassword);
     }
 }

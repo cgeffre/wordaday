@@ -22,12 +22,12 @@
             <p class="character-counter"><input onblur="characterCounter(this.form.recipients,this,500);" disabled onfocus="this.blur();" tabindex="999" maxlength="1" size="1" value="500" name="counter" class="character-counter"> characters remaining</p>
         </div>
         <div class="section">
-            <input type="checkbox" name="delete"><strong class="error">  Delete Word:</strong> This will remove the word and any associated notes from your account
+            <input type="checkbox" name="delete"><strong class="error">  Delete Word</strong> (This will remove the word and any associated notes from your account)
             <input type="hidden" name="delete" value="false"/>
         </div>
         <div class="section">
             <input class="btn btn-primary" type="submit" value="Update"/>
-            <p class="success" th:text="${saved}"/>
+            <div class="success" th:text="${saved}"/>
         </div>
     </form>
 </div>

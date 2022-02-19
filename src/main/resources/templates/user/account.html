@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+
+<body class="container body-content">
+
+<div th:replace="fragments :: page-header"></div>
+
+<h1>Account</h1>
+
+<p>Complete the fields below if you'd like to change your password.</p>
+
+<form method="post" class="section">
+    <div class="form-group">
+        <label>Current Password
+            <input class="form-control" th:field="${updatePasswordDTO.password}" type="password">
+        </label>
+        <p class="error" th:errors="${updatePasswordDTO.password}"></p>
+    </div>
+
+    <div class="form-group">
+        <label>New Password
+            <input class="form-control" th:field="${updatePasswordDTO.newPassword}" type="password" />
+        </label>
+        <p class="error" th:errors="${updatePasswordDTO.newPassword}"></p>
+    </div>
+    <div class="form-group">
+        <label>Verify New Password
+            <input class="form-control" th:field="${updatePasswordDTO.verifyPassword}" type="password" />
+        </label>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit" />
+    <div th:text="${passwordUpdated}" class="success"></div>
+</form>
+
+
+</body>
+</html>
