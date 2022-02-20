@@ -59,6 +59,7 @@ public class StudyController {
                 deck.setWords(newWord);
                 deckRepository.save(deck);
                 notes.setWord(newWord);
+                notes.setNotes("");
                 notesRepository.save(notes);
                 newWord.setDeck(deck);
                 newWord.setNotes(notes);
@@ -108,7 +109,7 @@ public class StudyController {
     public String processDeleteWord(@PathVariable int wordId, @RequestParam(required = false) String newNotes, @RequestParam(required=false) boolean delete, Model model) {
         Word word = wordRepository.findById(wordId).orElse(new Word());
         Notes notes = word.getNotes();
-        if (newNotes != null && !delete) {
+        if (!delete) {
             notes.setNotes(newNotes);
             notesRepository.save(notes);
             model.addAttribute("word", word);
@@ -117,11 +118,7 @@ public class StudyController {
             return "user/view";
         }
         if (delete) {
-            for (Definition definition : word.getDefinitions()) {
-                definitionRepository.delete(definition);
-            }
             wordRepository.delete(word);
-            notesRepository.delete(notes);
         }
         return "redirect:../study";
     }

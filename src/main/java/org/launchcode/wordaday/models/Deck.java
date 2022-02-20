@@ -1,5 +1,8 @@
 package org.launchcode.wordaday.models;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -7,9 +10,11 @@ import java.util.*;
 public class Deck extends AbstractEntity {
 
     @OneToMany(mappedBy="deck")
+    @Cascade(CascadeType.ALL)
     private List<Word> words = new ArrayList<>();
 
-    @OneToOne(mappedBy="deck")
+    @OneToOne
+    @JoinColumn(name="user_id", referencedColumnName = "id")
     private User user;
 
     public Deck() {}

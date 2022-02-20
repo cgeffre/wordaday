@@ -3,7 +3,6 @@ package org.launchcode.wordaday.controllers;
 import org.launchcode.wordaday.models.Deck;
 import org.launchcode.wordaday.models.User;
 import org.launchcode.wordaday.models.Word;
-import org.launchcode.wordaday.models.data.DefinitionRepository;
 import org.launchcode.wordaday.models.data.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

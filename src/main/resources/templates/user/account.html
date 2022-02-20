@@ -9,7 +9,7 @@
 
 <h1>Account</h1>
 
-<p>Complete the fields below if you'd like to change your password.</p>
+<p>Complete the fields below if you would like to change your password.</p>
 
 <form method="post" class="section">
     <div class="form-group">
@@ -30,8 +30,14 @@
             <input class="form-control" th:field="${updatePasswordDTO.verifyPassword}" type="password" />
         </label>
     </div>
+    <div class="section">
+        <input type="checkbox" th:field="${updatePasswordDTO.deleteAccount}"><strong class="error">  Delete Account</strong> (NOTE: This will permanently delete your Word-A-Day account and all of your information)
+        <input type="hidden" th:field="${updatePasswordDTO.deleteAccount}" value="false"/>
+    </div>
 
-    <input type="submit" class="btn btn-primary" value="Submit" />
+    <div class="section">
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </div>
     <div th:text="${passwordUpdated}" class="success"></div>
 </form>
 

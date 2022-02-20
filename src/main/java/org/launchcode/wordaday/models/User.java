@@ -6,7 +6,6 @@ import org.hibernate.annotations.CascadeType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -18,9 +17,8 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
-    @OneToOne
+    @OneToOne(mappedBy="user")
     @Cascade(CascadeType.ALL)
-    @JoinColumn(name="deck_id", referencedColumnName = "id")
     private Deck deck;
 
 

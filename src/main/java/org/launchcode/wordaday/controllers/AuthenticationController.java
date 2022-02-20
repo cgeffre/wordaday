@@ -1,9 +1,10 @@
 package org.launchcode.wordaday.controllers;
 
 import org.launchcode.wordaday.models.Deck;
+import org.launchcode.wordaday.models.Definition;
 import org.launchcode.wordaday.models.User;
-import org.launchcode.wordaday.models.data.DeckRepository;
-import org.launchcode.wordaday.models.data.UserRepository;
+import org.launchcode.wordaday.models.Word;
+import org.launchcode.wordaday.models.data.*;
 import org.launchcode.wordaday.models.dto.LoginFormDTO;
 import org.launchcode.wordaday.models.dto.RegisterFormDTO;
 import org.launchcode.wordaday.models.dto.UpdatePasswordDTO;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,7 +53,6 @@ public class AuthenticationController {
     @GetMapping("/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
-        model.addAttribute("title", "Register");
         return "register";
     }
 
@@ -65,7 +62,6 @@ public class AuthenticationController {
                                           Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
             return "register";
         }
 
@@ -81,15 +77,14 @@ public class AuthenticationController {
         String verifyPassword = registerFormDTO.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            model.addAttribute("title", "Register");
             return "register";
         }
 
         User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        Deck newDeck = new Deck();
-        deckRepository.save(newDeck);
-        newUser.setDeck(newDeck);
         userRepository.save(newUser);
+        Deck newDeck = new Deck();
+        newDeck.setUser(newUser);
+        deckRepository.save(newDeck);
         setUserInSession(request.getSession(), newUser);
 
         return "redirect:/user";
@@ -98,7 +93,6 @@ public class AuthenticationController {
     @GetMapping("/login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
         return "login";
     }
 
@@ -108,7 +102,6 @@ public class AuthenticationController {
                                    Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
             return "login";
         }
 
@@ -116,7 +109,6 @@ public class AuthenticationController {
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            model.addAttribute("title", "Log In");
             return "login";
         }
 
@@ -124,7 +116,6 @@ public class AuthenticationController {
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            model.addAttribute("title", "Log In");
             return "login";
         }
 
@@ -139,43 +130,4 @@ public class AuthenticationController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user/account")
-    public String userAccount(Model model, HttpSession session) {
-        model.addAttribute(new UpdatePasswordDTO());
-        String userSessionKey = "user";
-        Integer userId = (Integer) session.getAttribute(userSessionKey);
-        User user = userRepository.findById(userId).orElse(new User());
-        return "/user/account";
-    }
-
-    @PostMapping("/user/account")
-    public String updateAccount(@ModelAttribute @Valid UpdatePasswordDTO updatePasswordDTO, Errors errors, Model model, HttpSession session) {
-        String userSessionKey = "user";
-        Integer userId = (Integer) session.getAttribute(userSessionKey);
-        User user = userRepository.findById(userId).orElse(new User());
-
-        if (errors.hasErrors()) {
-            return "/user/account";
-        }
-
-        String password = updatePasswordDTO.getPassword();
-
-        if (!user.isMatchingPassword(password)) {
-            errors.rejectValue("password", "password.invalid", "Invalid password");
-            return "/user/account";
-        }
-
-        if (user.isMatchingPassword(password)) {
-            String newPassword = updatePasswordDTO.getNewPassword();
-            String verifyPassword = updatePasswordDTO.getVerifyPassword();
-            if (!newPassword.equals(verifyPassword)) {
-                errors.rejectValue("newPassword", "passwords.mismatch", "Passwords do not match");
-                return "/user/account";
-            }
-            user.updatePassword(newPassword);
-            userRepository.save(user);
-        }
-        model.addAttribute("passwordUpdated", "Your password has been changed.");
-        return "/user/account";
-    }
 }

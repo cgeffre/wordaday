@@ -3,6 +3,8 @@ package org.launchcode.wordaday.models;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -19,10 +21,11 @@ public class Word extends AbstractEntity {
     Deck deck;
 
     @OneToMany(mappedBy="word")
+    @Cascade(CascadeType.ALL)
     private List<Definition> definitions = new ArrayList<>();
 
-    @OneToOne
-    @JoinColumn(name="notes_id", referencedColumnName = "id")
+    @OneToOne(mappedBy="word")
+    @Cascade(CascadeType.ALL)
     private Notes notes;
 
     public Word() {}
