@@ -1,13 +1,10 @@
 package org.launchcode.wordaday.controllers;
 
 import org.launchcode.wordaday.models.Deck;
-import org.launchcode.wordaday.models.Definition;
 import org.launchcode.wordaday.models.User;
-import org.launchcode.wordaday.models.Word;
 import org.launchcode.wordaday.models.data.*;
 import org.launchcode.wordaday.models.dto.LoginFormDTO;
 import org.launchcode.wordaday.models.dto.RegisterFormDTO;
-import org.launchcode.wordaday.models.dto.UpdatePasswordDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

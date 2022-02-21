@@ -4,7 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class UpdatePasswordDTO {
+public class UpdateAccountDTO {
 
     @NotNull
     @NotBlank(message="Please enter a password")

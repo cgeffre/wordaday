@@ -2,7 +2,7 @@ package org.launchcode.wordaday.controllers;
 
 import org.launchcode.wordaday.models.User;
 import org.launchcode.wordaday.models.data.*;
-import org.launchcode.wordaday.models.dto.UpdatePasswordDTO;
+import org.launchcode.wordaday.models.dto.UpdateAccountDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ public class AccountController {
 
     @GetMapping("/user/account")
     public String userAccount(Model model, HttpSession session) {
-        model.addAttribute(new UpdatePasswordDTO());
+        model.addAttribute(new UpdateAccountDTO());
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
@@ -30,7 +30,7 @@ public class AccountController {
     }
 
     @PostMapping("/user/account")
-    public String updateAccount(@ModelAttribute @Valid UpdatePasswordDTO updatePasswordDTO, Errors errors, Model model, HttpSession session, HttpServletRequest request) {
+    public String updateAccount(@ModelAttribute @Valid UpdateAccountDTO updateAccountDTO, Errors errors, Model model, HttpSession session, HttpServletRequest request) {
         String userSessionKey = "user";
         Integer userId = (Integer) session.getAttribute(userSessionKey);
         User user = userRepository.findById(userId).orElse(new User());
@@ -39,22 +39,22 @@ public class AccountController {
             return "/user/account";
         }
 
-        String password = updatePasswordDTO.getPassword();
+        String password = updateAccountDTO.getPassword();
 
         if (!user.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             return "/user/account";
         }
 
-        if (user.isMatchingPassword(password) && updatePasswordDTO.isDeleteAccount()) {
+        if (user.isMatchingPassword(password) && updateAccountDTO.isDeleteAccount()) {
             userRepository.delete(user);
             request.getSession().invalidate();
             return "redirect:..";
         }
 
-        if (user.isMatchingPassword(password) && !updatePasswordDTO.isDeleteAccount()) {
-            String newPassword = updatePasswordDTO.getNewPassword();
-            String verifyPassword = updatePasswordDTO.getVerifyPassword();
+        if (user.isMatchingPassword(password) && !updateAccountDTO.isDeleteAccount()) {
+            String newPassword = updateAccountDTO.getNewPassword();
+            String verifyPassword = updateAccountDTO.getVerifyPassword();
             if (newPassword.length() < 5 || newPassword.length() > 20) {
                 errors.rejectValue("newPassword", "passwords.invalid", "Password must be between 5 and 20 characters");
                 return "/user/account";
