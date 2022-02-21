@@ -56,7 +56,7 @@ public class AccountController {
             String newPassword = updatePasswordDTO.getNewPassword();
             String verifyPassword = updatePasswordDTO.getVerifyPassword();
             if (newPassword.length() < 5 || newPassword.length() > 20) {
-                errors.rejectValue("newPassword", "passwords.invalid", "Invalid password. Must be between 5 and 20 characters.");
+                errors.rejectValue("newPassword", "passwords.invalid", "Password must be between 5 and 20 characters");
                 return "/user/account";
             }
             if (!newPassword.equals(verifyPassword)) {
@@ -65,7 +65,7 @@ public class AccountController {
             }
             user.updatePassword(newPassword);
             userRepository.save(user);
-            model.addAttribute("passwordUpdated", "Your password has been changed.");
+            model.addAttribute("passwordUpdated", "Your password has been changed!");
             return "user/account";
         }
         return "/user/account";

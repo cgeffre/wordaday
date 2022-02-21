@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 public class UpdatePasswordDTO {
 
     @NotNull
-    @NotBlank
-    @Size(min = 5, max = 20, message = "Invalid password. Must be between 5 and 20 characters.")
+    @NotBlank(message="Please enter a password")
+    @Size(min = 5, max = 20, message = "Password must be between 5 and 20 characters")
     private String password;
 
     private String newPassword;
