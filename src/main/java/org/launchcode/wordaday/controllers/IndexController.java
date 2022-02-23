@@ -34,7 +34,7 @@ public class IndexController {
     @Autowired
     NotesRepository notesRepository;
 
-    @GetMapping("/")
+    @GetMapping
     public String index(Model model) {
         Word word = new Word();
         int count = 0;
