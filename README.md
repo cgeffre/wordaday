@@ -15,10 +15,9 @@ By adding just one word each day and studying regularly, you'll have a copious c
 
 # SETUP
 
-This application is currently under active development and we anticipate deploying it publicly in early March 2022. In the meantime, you can check out the most recent version by cloning this repository to your preferred IDE and do the following:
-- Compile using JDK 11
-- Configure a MySQL schema at localhost:3306 with the name "wordoftheday" (or modify application.properties accordingly)
-- Set the username and password to "wordoftheday" and enable all permissions
+Visit https://wordadayapp.herokuapp.com/ to access the most recent web release of this application. You will need to create an account in order to access many of the application's features.
+
+To use the application locally, clone the repository and set your IDE to compile the application using Java Development Kit (JDK) 11. You may need to have Gradle installed if you are not compiling the application from IntelliJ IDEA or Spring Tool Suite. You will need to set up your own application.properties file in the resources directory with the database settings you wish to use.
 
 # TECHNICAL INFORMATION
 
