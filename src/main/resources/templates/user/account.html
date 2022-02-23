@@ -14,25 +14,25 @@
 <form method="post" class="section">
     <div class="form-group">
         <label>Current Password
-            <input class="form-control" th:field="${updatePasswordDTO.password}" type="password">
+            <input class="form-control" th:field="${updateAccountDTO.password}" type="password">
         </label>
-        <p class="error" th:errors="${updatePasswordDTO.password}"></p>
+        <p class="error" th:errors="${updateAccountDTO.password}"></p>
     </div>
 
     <div class="form-group">
         <label>New Password
-            <input class="form-control" th:field="${updatePasswordDTO.newPassword}" type="password" />
+            <input class="form-control" th:field="${updateAccountDTO.newPassword}" type="password" />
         </label>
-        <p class="error" th:errors="${updatePasswordDTO.newPassword}"></p>
+        <p class="error" th:errors="${updateAccountDTO.newPassword}"></p>
     </div>
     <div class="form-group">
         <label>Verify New Password
-            <input class="form-control" th:field="${updatePasswordDTO.verifyPassword}" type="password" />
+            <input class="form-control" th:field="${updateAccountDTO.verifyPassword}" type="password" />
         </label>
     </div>
     <div class="section">
-        <input type="checkbox" th:field="${updatePasswordDTO.deleteAccount}"><strong class="error">  Delete Account</strong> (NOTE: This will permanently delete your Word-A-Day account and all of your information)
-        <input type="hidden" th:field="${updatePasswordDTO.deleteAccount}" value="false"/>
+        <input type="checkbox" th:field="${updateAccountDTO.deleteAccount}"><strong class="error">  Delete Account</strong> (NOTE: This will permanently delete your Word-A-Day account and all of your information)
+        <input type="hidden" th:field="${updateAccountDTO.deleteAccount}" value="false"/>
     </div>
 
     <div class="section">
