@@ -1,60 +1,118 @@
-.body-content {
-    margin-top: 75px;
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100&family=Poppins:ital,wght@0,100;1,200&display=swap');
+/* CSS rules to specify families
+font-family: 'Be Vietnam Pro', sans-serif;
+font-family: 'Poppins', sans-serif;
+*/
+
+/* Universal Styling */
+* {
+    box-sizing: border-box;
 }
 
-h1 {
-    padding-bottom: 20px;
-}
-
-td, th {
-    padding: 10px;
-}
-
-ul {
-    float: left;
+body {
+    background: #0b1e99;
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Be Vietnam Pro', sans-serif;
     overflow: hidden;
+}
+
+/* Nav Bar styling */
+.navbar{
+    display: grid;
+    grid-template-columns: repeat(3, 400px 1fr 1fr 1fr);
+    margin-top:22px
+    grid-gap: 20px;
+
+}
+
+li{
+    list-style:none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+/* list item for name "Word-A-Day" */
+li:nth-child(1) {
+    margin-right: 100px;
+}
+/* List item for the reg menu  */
+li:nth-child(2) {
+    margin-left: 400px;
+}
+
+.nav-link{
+    text-align: center;
+    padding: 10px 30px;
+    padding-top: 5px;
+    border-radius: 50px;
+}
+
+.nav-link:not(first-of-type){
+    background-color: #0b1e99;
+    transition: transform .3s;
+}
+
+/* Nav Bar- Hover effect */
+.nav-link:not(first-of-type):hover{
+    background-color: #42b2db;
+    cursor: pointer;
+    transform: translateY(5);
+}
+/* End of Nav bar styling */
+
+/* Main section styling */
+
+.float-container {
+    padding: 50px;
+}
+
+.float-child {
     width: 50%;
+    float: left;
+    padding: 1px;
+
 }
 
-.error {
-    color: #FF0000;
+.float-child .btn{
+    border: none;
+    outline: none;
+    background: transparent;
+    border-radius: 50px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform .3s;
 }
 
-.section {
-    padding-top: 35px;
+.float-child .btn: hover {
+    transform: translateY(5px);
 }
 
-.footer {
-    padding-top: 50px;
-    font-size: smaller;
-    float: bottom;
+.float-child .btn1 {
+    background: #17375b;
+    border: 2px solid #42b2db;
+}
+.float-child .btn1: hover {
+    background: #42b2db;
 }
 
-.word-container {
-    height: 120px;
-    position: relative;
+.float-child .btn2 {
+    border: 2px solid #42b2db;
+    background-color: #17375b;
+    margin-left: 10px;
+    color: #fff;
+}
+.float-child .btn2: hover{
+    background-color: #42b2db;
+    cursor: pointer;
+    transform: translateY(5);
+}
 }
 
-.word-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
 
-.word {
-    font-size: larger;
-    font-weight: bold;
-}
-
-.score-display {
-    font-size: larger;
-    color: green;
-    font-weight: bold;
-}
-
-.study-display {
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
+/* END OF Main section styling */
