@@ -31,10 +31,10 @@ public class Word extends AbstractEntity {
     public Word() {}
 
     public Word generateRandomFromApis(Word word) throws IOException {
-        URL jsonWordUrl = new URL("https://random-word-api.herokuapp.com/word?number=1");
+        URL jsonWordUrl = new URL("https://api.wordnik.com/v4/words.json/randomWord?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=2&maxLength=-1&api_key=le18ljtuvicne235szv9snumadds2xyvy4xfbs82tymfkbn66");
         ObjectMapper mapper = new ObjectMapper();
         JsonNode wordApi = mapper.readValue(jsonWordUrl, JsonNode.class);
-        String wordText = wordApi.get(0).textValue();
+        String wordText = wordApi.get("word").textValue();
         URL jsonDefURL = new URL("https://dictionaryapi.com/api/v3/references/collegiate/json/" + wordText + "?key=b5117ef5-0b38-4857-911e-f6c32b7a4eb1");
         JsonNode defApi = mapper.readValue(jsonDefURL, JsonNode.class);
         ArrayNode defArrayNode = (ArrayNode) defApi.get(0).get("shortdef");
