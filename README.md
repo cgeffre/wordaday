@@ -27,5 +27,5 @@ This project was developed in Spring Boot using a Model-View-Controller framewor
 
 Special thanks to the following APIs that help make this application run:
 
-- Random Word API (https://random-word-api.herokuapp.com/home)
+- Wordnik Random Word API (http://wordnik.com/)
 - Merriam-Webster Dictionary API (https://dictionaryapi.com/)
