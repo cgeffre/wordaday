@@ -22,7 +22,7 @@ body {
 .navbar{
     display: grid;
     grid-template-columns: repeat(3, 400px 1fr 1fr 1fr);
-    margin-top:22px
+    margin-top:22px;
     grid-gap: 20px;
 
 }
@@ -37,9 +37,10 @@ a{
 }
 
 /* list item for name "Word-A-Day" */
-li:nth-child(1) {
+.navbar-header{
     margin-right: 100px;
 }
+
 /* List item for the reg menu  */
 li:nth-child(2) {
     margin-left: 400px;
@@ -115,4 +116,4 @@ li:nth-child(2) {
 }
 
 
-/* END OF Main section styling */
+ END OF Main section styling
